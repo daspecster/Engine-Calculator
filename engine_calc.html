@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+
+
+
+<script type="text/javascript">
+
+
+function convert_to_cc(value)
+{
+	return Number(value) * 2.54;
+}
+
+function update_values()
+{
+	// Get values
+	var bore_inches = document.getElementById("bore_in");
+	var bore_cc = document.getElementById("bore_cc");
+	var stroke_inches = document.getElementById("stroke_in");
+	var stroke_cc = document.getElementById("stroke_cc");
+	var combustion_chamber_cc = document.getElementById("combustion_chamber_cc");
+	var swept_volume = document.getElementById("swept_volume");
+	var swept_volume_cc = document.getElementById("swept_volume_cc");
+	var head_gasket_thickness = document.getElementById("head_gasket_thicknes");
+	var head_gasket_bore_in = document.getElementById("head_gasket_bore_in");
+	var head_gasket_bore_cc = document.getElementById("head_gasket_bore_cc");
+	var head_gasket_volume = document.getElementById("head_gasket_volume");
+	var head_gasket_volume_cc = document.getElementById("head_gasket_volume_cc");
+	var cubic_inches = document.getElementById("cubic_inches");
+	var cubic_centimeters = document.getElementById("cubic_centimeters");
+	var deck_height = document.getElementById("deck_height");
+	var compression_height = document.getElementById("compression_height");
+	var connection_rod_length = document.getElementById("connection_rod_length");
+	var clearance_to_head = document.getElementById("clearance_to_head");
+	var clearance_volume = document.getElementById("clearance_volume");
+	var compression_ratio = document.getElementById("compression_ratio");
+	var piston_relief_cc = document.getElementById("piston_relief_cc");
+
+	// Set the values
+	bore_cc.value = convert_to_cc(bore_inches.value);
+	stroke_cc.value = convert_to_cc(stroke_inches.value);
+	swept_volume.value = ((Math.pow((Number(bore_inches.value) / 2), 2) * 3.1416) * Number(stroke_inches.value));
+	swept_volume_cc.value = ((Math.pow((Number(bore_cc.value) / 2), 2) * 3.1416) * Number(stroke_cc.value));
+	head_gasket_bore_cc.value = convert_to_cc(head_gasket_bore_in.value);
+	head_gasket_volume.value = (Number(head_gasket_thickness.value) * (Math.pow((Number(head_gasket_bore_in.value) / 2), 2) * 3.1416));
+	head_gasket_volume_cc.value = (Number(head_gasket_thickness.value) * (Math.pow((Number(head_gasket_bore_cc.value) / 2), 2) * 3.1416));
+	cubic_inches.value = swept_volume.value * 8;
+	cubic_centimeters.value = swept_volume_cc.value * 8;
+
+	clearance_to_head.value = (Number(deck_height.value) - (Number(connection_rod_length.value) + Number(compression_height.value) + (0.5 * Number(stroke_inches.value))));
+
+	clearance_volume.value = clearance_to_head.value * (Math.pow((bore_inches.value / 2), 2) * 3.1416);
+	
+	compression_ratio.value = ( Number(swept_volume_cc.value) + Number(head_gasket_volume_cc.value) + Number(combustion_chamber_cc.value) + Number(piston_relief_cc.value)) / ( Number(combustion_chamber_cc.value) + Number(head_gasket_volume_cc.value) + Number(clearance_volume.value)); 
+}
+</script>
+<style type="text/css">
+input { display:block;}
+
+.readonly {
+	background-color: #FFF;	
+}
+
+</style>
+
+
+
+<title>Conforming XHTML 1.0 Strict Template</title>
+
+</head>
+	<body>
+		<label for="bore_in">Bore Inches*:</label>
+		<input id="bore_in" onkeyup="update_values()" type="text">
+
+		<label for="bore_cc">Bore cc:</label>
+		<input id="bore_cc" class="readonly" readonly="readonly" onkeyup="update_values()" type="text">
+
+		<label for="stroke_in">Stroke Inches*:</label>
+		<input id="stroke_in" onkeyup="update_values()" type="text">
+
+		<label for="stroke_cc">Stroke cc:</label>
+		<input id="stroke_cc" class="readonly" readonly="readonly" onkeyup="update_values()" type="text">
+
+		<label for="combusion_chamber_cc">Combustion Chamber cc*:</label>
+		<input id="combustion_chamber_cc" onkeyup="update_values()" type="text">
+
+		<label for="swept_volume">Swept Volume:</label>
+		<input id="swept_volume" class="readonly" readonly="readonly" onkeyup="update_values()" type="text">
+
+		<label for="swept_volume_cc">Swept Volume cc:</label>
+		<input id="swept_volume_cc" class="readonly" readonly="readonly" onkeyup="update_values()" type="text">
+
+		<label for="head_gasket_thickness">Head Gasket Thickness*:</label>
+		<input id="head_gasket_thicknes" onkeyup="update_values()" type="text">
+
+		<label for="head_gasket_bore_in">Head Gasket Bore Inches*:</label>
+		<input id="head_gasket_bore_in" onkeyup="update_values()" type="text">
+
+		<label for="head_gasket_bore_cc">Head Gasket Bore cc:</label>
+		<input id="head_gasket_bore_cc" class="readonly" readonly="readonly" onkeyup="update_values()" type="text">
+
+		<label for="head_gasket_volume">Head Gasket Volume:</label>
+		<input id="head_gasket_volume" class="readonly" readonly="readonly" onkeyup="update_values()" type="text">
+
+		<label for="head_gasket_volume_cc">Head Gasket Volume cc:</label>
+		<input id="head_gasket_volume_cc" class="readonly" readonly="readonly" onkeyup="update_values()" type="text">
+
+		<label for="cubic_inches">Cubic Inches:</label>
+		<input id="cubic_inches" class="readonly" readonly="readonly" onkeyup="update_values()" type="text">
+
+		<label for="cubic_centimeters">Cubic Centimeters:</label>
+		<input id="cubic_centimeters" class="readonly" readonly="readonly" onkeyup="update_values()" type="text">
+
+		<label for="pistion_relief_cc">Piston Relief cc*:</label>
+		<input id="piston_relief_cc" onkeyup="update_values()" type="text">
+
+		<label for="compression_ratio">Compression Ratio:</label>
+		<input id="compression_ratio" class="readonly" readonly="readonly" onkeyup="update_values()" type="text">
+
+		<label for="compression_height">Compression Height*:</label>
+		<input id="compression_height" onkeyup="update_values()" type="text">
+
+		<label for="connection_rod_length">Connection Rod Length*:</label>
+		<input id="connection_rod_length" onkeyup="update_values()" type="text">
+
+		<label for="deck_height">Deck Height*:</label>
+		<input id="deck_height" onkeyup="update_values()" type="text">
+
+		<label for="clearance_to_head">Clearance to Head:</label>
+		<input id="clearance_to_head" class="readonly" readonly="readonly" onkeyup="update_values()" type="text">
+
+		<label for="clearance_volume">Clearance Volume:</label>
+		<input id="clearance_volume" class="readonly" readonly="readonly" onkeyup="update_values()" type="text">
+	</body>
+</html>
